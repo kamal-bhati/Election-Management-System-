@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-console.log("herte we are routes")
+
+
 const adminSchema = new mongoose.Schema({
  
   username: {
@@ -30,7 +31,7 @@ const adminSchema = new mongoose.Schema({
   timestamps: true, 
 });
 
-const mongoose = require('mongoose');
+
 
 const voterApplicationSchema = new mongoose.Schema({
   application_id: {
@@ -60,6 +61,11 @@ const voterApplicationSchema = new mongoose.Schema({
     enum: ['pending', 'rejected', 'verified'],
     default: 'pending',
   },
+  voted:{
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   applied_at: {
     type: Date,
     default: Date.now,
@@ -71,6 +77,7 @@ const voterApplicationSchema = new mongoose.Schema({
 }, {
   timestamps: true,
 });
+
 
 const verifiedUserSchema = new mongoose.Schema({
     voter_id: {
