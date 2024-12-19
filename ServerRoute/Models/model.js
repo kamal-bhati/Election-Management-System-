@@ -47,6 +47,10 @@ const voterApplicationSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  constituency : {
+    type: String,
+    required: true,
+  },
   address: {
     type: String,
     required: true,
@@ -110,6 +114,103 @@ const verifiedUserSchema = new mongoose.Schema({
     timestamps: true,
   });
   
+
+
+  const candidateSchema = new mongoose.Schema({
+      name: {
+          type: String,
+          required: true,
+          trim: true,
+      },
+      party: {
+          type:String,
+          required: false,
+      },
+      constituency: {
+          type: String,
+          required: true,
+          trim: true,
+      },
+      age: {
+          type: Number,
+          required: true,
+          min: 25, 
+      },
+      education: {
+          type: String,
+          required: false,
+          trim: true,
+      },
+      criminalRecords: {
+          type: Boolean,
+          default: false,
+      },
+      status: {
+          type: String,
+          enum: ['Pending', 'Approved', 'Rejected'], 
+          default: 'Pending',
+      },
+      createdAt: {
+          type: Date,
+          default: Date.now,
+      },
+      updatedAt: {
+          type: Date,
+          default: Date.now,
+      },
+  });
+
+
+  const partySchema = new mongoose.Schema({
+      name: {
+          type: String,
+          required: true,
+          unique: true, 
+          trim: true,
+      },
+      leader: {
+          type: String,
+          required: true,
+          trim: true,
+      },
+      symbol: {
+          type: String,
+          required: true,
+          unique: true, 
+      },
+      establishedYear: {
+          type: Number,
+          required: true,
+          min: 1800,
+          max: new Date().getFullYear(),
+      },
+      
+      address: {
+          type: String,
+          required: true,
+          trim: true,
+      },
+      status: {
+          type: String,
+          enum: ['Pending', 'Approved', 'Rejected'], 
+          default: 'Pending',
+      },
+      createdAt: {
+          type: Date,
+          default: Date.now,
+      },
+      updatedAt: {
+          type: Date,
+          default: Date.now,
+      },
+  });
+  
+  let partVerification = mongoose.model('Party', partySchema);
+  
+
+  let candidateVerification = mongoose.model('Candidate', candidateSchema);
+  
+
   const VerifiedUser = mongoose.model('VerifiedUser', verifiedUserSchema);
 
 
@@ -119,4 +220,4 @@ const VoterApplication = mongoose.model('VoterApplication', voterApplicationSche
 let admin = mongoose.model('Admin', adminSchema);
 
 
-export {admin,VoterApplication,VerifiedUser}
+export {admin,VoterApplication,VerifiedUser,candidateVerification,partVerification}
