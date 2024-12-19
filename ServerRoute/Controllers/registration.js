@@ -1,12 +1,8 @@
 import {admin,VoterApplication,VerifiedUser,candidateVerification,partVerification} from '../Models/model.js'
 import bcrypt from 'bcryptjs';
 
-
-
-
-
 let adminRegister =async (req,res)=>{
-    console.log("hert1 we are routes")
+    
     let {username,email,role,password} = req.body;
 
     try {
@@ -65,7 +61,7 @@ let partyRegistration = async (req, res) => {
         let newParty = new partVerification({name,symbol,leader,establishedYear,createdAt,address,status,updatedAt});
         await newParty.save();
         
-        res.status(201).json({message: "Party registered successfully!"});
+        res.status(201).json(newParty);
         
     } catch (error) {
         console.error(error);
@@ -85,11 +81,11 @@ let candidateRegistration = async (req, res) => {
         let newCandidate = new candidateVerification({name,party,constituency,age,education,criminalRecords,status,createdAt,updatedAt});
         await newCandidate.save();
         
-        res.status(201).json({message: "Candidate registered successfully!"});
+        res.status(201).json(newCandidate);
         
     } catch (error) {
         console.error(error);
-        res.status(500).json({message: "Error registering candidate!"});
+        res.status(500).json(newCandidate,{message: "Error registering candidate!"});
         
     }
 }
