@@ -19,7 +19,7 @@ let adminLogin = async (req, res) => {
         adminData.last_login = new Date();
         await adminData.save();
         
-        res.json({message: "Admin logged in successfully!", adminData});
+        res.json(adminData);
         
     } catch (error) {
         console.error(error);
