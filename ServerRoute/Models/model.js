@@ -45,6 +45,11 @@ const voterApplicationSchema = new mongoose.Schema(
           unique: true,
           match: /.+\@.+\..+/,
         },
+        status: {
+            type: String,
+            enum: ['Pending', 'Approved', 'Rejected'], 
+            default: 'Pending',
+        },
         dob: {
           type: Date,
           required: true,
