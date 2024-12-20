@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 const adminSchema = new mongoose.Schema({
  
   username: {
@@ -33,54 +32,48 @@ const adminSchema = new mongoose.Schema({
 
 
 
-const voterApplicationSchema = new mongoose.Schema({
-  application_id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  full_name: {
-    type: String,
-    required: true,
-  },
-  date_of_birth: {
-    type: Date,
-    required: true,
-  },
-  constituency : {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  national_id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  status: {
-    type: String,
-    enum: ['pending', 'rejected', 'verified'],
-    default: 'pending',
-  },
-  voted:{
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  applied_at: {
-    type: Date,
-    default: Date.now,
-  },
-  comments: {
-    type: String,
-    default: null,
-  },
-}, {
-  timestamps: true,
-});
+const voterApplicationSchema = new mongoose.Schema(
+    {
+        name: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        email: {
+          type: String,
+          required: true,
+          unique: true,
+          match: /.+\@.+\..+/,
+        },
+        dob: {
+          type: Date,
+          required: true,
+        },
+        address: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        constituency: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        phone: {
+          type: String,
+          required: true,
+          unique: true,
+          match: /^[0-9]{10}$/,
+        },
+        password: {
+          type: String,
+          required: true,
+        },
+      },
+      {
+        timestamps: true, 
+      }
+    );
 
 
 const verifiedUserSchema = new mongoose.Schema({
@@ -114,7 +107,6 @@ const verifiedUserSchema = new mongoose.Schema({
     timestamps: true,
   });
   
-
 
   const candidateSchema = new mongoose.Schema({
       name: {

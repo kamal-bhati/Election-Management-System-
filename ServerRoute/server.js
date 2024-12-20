@@ -6,17 +6,21 @@ import {
   partyRegistrationRoute,
   candidateRegistrationRoute,
   getPartyDataRoute,
-  updatePartyStatusRoute
+  updatePartyStatusRoute,
+  getCandidateDataRoute,
+  getVoterDataRoute,
 } from "./Router/routes.js";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors"
 let app = express();
 
 dotenv.config();
 mongoose.connect(process.env.URI);
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", adminRegisterRoute);
 app.use("/", adminLoginRoute);
@@ -26,6 +30,8 @@ app.use("/", candidateRegistrationRoute);
 app.use("/", homeRoute);
 
 app.use("/", getPartyDataRoute);
+app.use("/",getCandidateDataRoute);
+app.use("/",getVoterDataRoute);
 
 //update Route
 app.use("/", updatePartyStatusRoute);
