@@ -4,9 +4,9 @@ import {
   partyRegistration,
   candidateRegistration,
 } from "../Controllers/registration.js";
-import { adminLogin } from "../Controllers/login.js";
+import { adminLogin,voterLogin } from "../Controllers/login.js";
 import { getPartyData,getVoterData,getcandidateData } from "../Controllers/getData.js";
-import { updatePartyStatus } from "../Controllers/updateData.js";
+import { updatePartyStatus,updateStatusVoter } from "../Controllers/updateData.js";
 import express from "express";
 let adminRegisterRoute = express.Router();
 let adminLoginRoute = express.Router();
@@ -18,6 +18,8 @@ let getPartyDataRoute = express.Router();
 let getCandidateDataRoute = express.Router();
 let getVoterDataRoute = express.Router();
 let updatePartyStatusRoute = express.Router();
+let voterLoginRoute = express.Router();
+let updateVoterStatusRoute = express.Router();
 
 //Registration Route
 adminRegisterRoute.post("/admin-register", adminRegister);
@@ -27,9 +29,11 @@ candidateRegistrationRoute.post("/candidate-register", candidateRegistration);
 
 //Login Route
 adminLoginRoute.post("/admin-login", adminLogin);
+voterLoginRoute.post("/voter-login",voterLogin)
 
 //Update Route
 updatePartyStatusRoute.put("/update-party-status", updatePartyStatus);
+updateVoterStatusRoute.put("/update-voter-status",updateStatusVoter);
 
 //Data get Route
 getPartyDataRoute.get("/get-party-data", getPartyData);
@@ -60,4 +64,6 @@ export {
   updatePartyStatusRoute,
   getCandidateDataRoute,
   getVoterDataRoute,
+  voterLoginRoute,
+  updateVoterStatusRoute
 };

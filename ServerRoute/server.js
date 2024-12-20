@@ -9,6 +9,8 @@ import {
   updatePartyStatusRoute,
   getCandidateDataRoute,
   getVoterDataRoute,
+  updateVoterStatusRoute,
+  voterLoginRoute
 } from "./Router/routes.js";
 import express from "express";
 import mongoose from "mongoose";
@@ -24,6 +26,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", adminRegisterRoute);
 app.use("/", adminLoginRoute);
+app.use("/",voterLoginRoute);
 app.use("/", voterRegistrationRoute);
 app.use("/", partyRegistrationRoute);
 app.use("/", candidateRegistrationRoute);
@@ -35,6 +38,7 @@ app.use("/",getVoterDataRoute);
 
 //update Route
 app.use("/", updatePartyStatusRoute);
+app.use("/", updateVoterStatusRoute);
 app.listen(process.env.PORT || 3000, (req, res) => {
   console.log("Server connected");
 });
