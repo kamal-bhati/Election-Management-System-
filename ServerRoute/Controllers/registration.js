@@ -27,7 +27,7 @@ let adminRegister =async (req,res)=>{
 }
 
 let voterRegistration = async (req, res) => {
-    let {name,email,dob,address,phone,password} = req.body;
+    let {name,email,dob,address,constituency,phone,password} = req.body;
     try {
         let user = await VoterApplication.findOne({email});
         if(user){
@@ -36,7 +36,7 @@ let voterRegistration = async (req, res) => {
         
         let hashedPassword = await bcrypt.hash(password,10);
         
-        let newUser = new VoterApplication({name,email,dob,address,phone,password:hashedPassword});
+        let newUser = new VoterApplication({name,email,dob,address,constituency,phone,password:hashedPassword});
         await newUser.save();
         
         res.status(201).json({message: "User registered successfully!"});

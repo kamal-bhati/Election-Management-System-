@@ -5,7 +5,7 @@ import {
   candidateRegistration,
 } from "../Controllers/registration.js";
 import { adminLogin } from "../Controllers/login.js";
-import { getPartyData } from "../Controllers/getData.js";
+import { getPartyData,getVoterData,getcandidateData } from "../Controllers/getData.js";
 import { updatePartyStatus } from "../Controllers/updateData.js";
 import express from "express";
 let adminRegisterRoute = express.Router();
@@ -15,6 +15,8 @@ let partyRegistrationRoute = express.Router();
 let candidateRegistrationRoute = express.Router();
 let homeRoute = express.Router();
 let getPartyDataRoute = express.Router();
+let getCandidateDataRoute = express.Router();
+let getVoterDataRoute = express.Router();
 let updatePartyStatusRoute = express.Router();
 
 //Registration Route
@@ -27,14 +29,24 @@ candidateRegistrationRoute.post("/candidate-register", candidateRegistration);
 adminLoginRoute.post("/admin-login", adminLogin);
 
 //Update Route
-
 updatePartyStatusRoute.put("/update-party-status", updatePartyStatus);
 
 //Data get Route
 getPartyDataRoute.get("/get-party-data", getPartyData);
+getCandidateDataRoute.get("/get-candidate-data", getcandidateData);
+getVoterDataRoute.get("/get-voter-data", getVoterData);
 
 homeRoute.get("/", (req, res) => {
-  res.send("Welcome to the Election Management System");
+  res.send(`Welcome to the Election Management System awailable routes are  - 
+    /admin-register,
+    /voter-register,
+    /party-register,
+    /candidate-register,
+    /admin-login,
+    /update-party-status,
+    /get-party-data,
+    /get-candidate-data,
+    /get-voter-data`);
 });
 
 export {
@@ -46,4 +58,6 @@ export {
   homeRoute,
   getPartyDataRoute,
   updatePartyStatusRoute,
+  getCandidateDataRoute,
+  getVoterDataRoute,
 };
