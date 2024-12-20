@@ -206,7 +206,7 @@ const verifiedUserSchema = new mongoose.Schema({
   const VerifiedUser = mongoose.model('VerifiedUser', verifiedUserSchema);
 
 
-const VoterApplication = mongoose.model('VoterApplication', voterApplicationSchema);
+const VoterApplication = mongoose.model('VoterRegister', voterApplicationSchema);
 
 
 let admin = mongoose.model('Admin', adminSchema);
