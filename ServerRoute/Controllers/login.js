@@ -1,4 +1,4 @@
-import {admin} from "../Models/model.js"
+import {admin,VoterApplication} from "../Models/model.js"
 
 import bcrypt from 'bcryptjs';
 
@@ -27,5 +27,29 @@ let adminLogin = async (req, res) => {
         
     }
 }
+let voterLogin = async (req,res) => {
+    let {email, password} = req.body;
+    try {
+        let voterData = await VoterApplication.findOne({email});
+        if (!voterData || voterData.status!=="Approved") {
+            return res.status(404).json({message: "Voter not registered or not approved by admin!"});
+        }
+        
+        let isMatch = await bcrypt.compare(password, voterData.password);
+        if (!isMatch) {
+            return res.status(401).json({message: "Invalid password!"});
+        }
+        
+        voterData.last_login = new Date();
+        await voterData.save();
+        
+        res.status(200).json(voterData);
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: "Error logging in voter!"});
+        
+    }
+}
 
-export {adminLogin}
+export {adminLogin,voterLogin}
